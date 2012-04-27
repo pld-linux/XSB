@@ -1,0 +1,38 @@
+--- XSB/build/configure.in.orig	2011-12-15 22:06:14.000000000 +0100
++++ XSB/build/configure.in	2012-04-20 21:32:04.679356156 +0200
+@@ -555,14 +555,7 @@
+ else
+     canonical=`${CONFIG_SHELL-/bin/sh} ./config.sub $configuration 2>&1`
+ 
+-    if test -n "`echo "$canonical" | sed -e [s/${configuration}//]`" ; then
+-	echo $canonical
+-	echo ""
+-	rm -f  buildxsb.lock
+-	exit 1
+-    else
+ 	AC_MSG_NOTICE([checking host system type... $canonical])
+-    fi
+ fi
+ 
+ 
+@@ -1704,6 +1704,7 @@
+ ### Specify what will be substituted into Makefile, xsb_config.h, etc.
+ AC_SUBST(xsb_version)
+ AC_SUBST(canonical)
++AC_SUBST(configuration)
+ AC_SUBST(full_config_name)
+ AC_SUBST(topdir)
+ AC_SUBST(prefix)
+--- XSB/build/xsb.in.orig	2011-09-09 12:18:44.000000000 +0200
++++ XSB/build/xsb.in	2012-04-22 07:30:27.610140318 +0200
+@@ -74,8 +74,8 @@
+ scriptdir=`dirname $thisfile`
+ topdir=`dirname $scriptdir`
+ 
+-config=`$topdir/build/config.guess`
+-canonical=`$topdir/build/config.sub $config`
++config="@configuration@"
++canonical="@canonical@"
+ exec_dir=$topdir/config/${canonical}${suffix}
+ executable=${exec_dir}/bin/xsb
+ 
